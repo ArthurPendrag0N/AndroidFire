@@ -14,7 +14,7 @@ import rx.functions.Action1;
  * Created by xsf
  * on 2016.09.17:43
  */
-public class NewsMainPresenter extends NewsMainContract.Presenter{
+public class NewsMainPresenter extends NewsMainContract.Presenter {
 
     @Override
     public void onStart() {
@@ -24,7 +24,7 @@ public class NewsMainPresenter extends NewsMainContract.Presenter{
 
             @Override
             public void call(List<NewsChannelTable> newsChannelTables) {
-                if(newsChannelTables!=null){
+                if (newsChannelTables != null) {
                     mView.returnMineNewsChannels(newsChannelTables);
                 }
             }
@@ -33,7 +33,7 @@ public class NewsMainPresenter extends NewsMainContract.Presenter{
 
     @Override
     public void lodeMineChannelsRequest() {
-        mRxManage.add(mModel.lodeMineNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext,false) {
+        mRxManage.add(mModel.lodeMineNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
             @Override
             protected void _onNext(List<NewsChannelTable> newsChannelTables) {
                 mView.returnMineNewsChannels(newsChannelTables);

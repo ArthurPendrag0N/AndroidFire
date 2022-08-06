@@ -2,7 +2,6 @@ package com.jaydenxiao.androidfire.ui.zone.viewholder;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,8 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaydenxiao.androidfire.R;
 import com.jaydenxiao.androidfire.ui.zone.DatasUtil;
@@ -42,13 +43,6 @@ import java.util.List;
  */
 public class ZoneViewHolder extends RecyclerView.ViewHolder {
 
-    private Context mContext;
-    private int type;
-    private View itemView;
-    private CircleZonePresenter mPresenter;
-    private CircleItem circleItem;
-    private int position;
-
     public ImageView headIv;
     public TextView nameTv;
     public TextView urlTipTv;
@@ -66,11 +60,9 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
      * 点赞列表
      */
     public FavortListView favortListTv;
-
     public LinearLayout urlBody;
     public LinearLayout digCommentBody;
     public View digLine;
-
     /**
      * 评论列表
      */
@@ -90,63 +82,74 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
     //至关重要一步，复用自定义适配器
     public FavortListAdapter favortListAdapter;
     public CommentAdapter commentAdapter;
+    private final Context mContext;
+    private final int type;
+    private final View itemView;
+    private CircleZonePresenter mPresenter;
+    private CircleItem circleItem;
+    private int position;
+    /**
+     * //点赞、取消点赞
+     */
+    private long mLasttime = 0;
 
-    public static ZoneViewHolder create(Context context, int type) {
-        ZoneViewHolder imageViewHolder = new ZoneViewHolder(LayoutInflater.from(context).inflate(R.layout.item_circle_list, null), context,type );
-        return imageViewHolder;
-    }
     public ZoneViewHolder(View itemView, final Context context, int type) {
         super(itemView);
-        this.itemView=itemView;
-        this.type=type;
+        this.itemView = itemView;
+        this.type = type;
         this.mContext = context;
         initView();
+    }
+
+    public static ZoneViewHolder create(Context context, int type) {
+        ZoneViewHolder imageViewHolder = new ZoneViewHolder(LayoutInflater.from(context).inflate(R.layout.item_circle_list, null), context, type);
+        return imageViewHolder;
     }
 
     /**
      * 初始化
      */
     private void initView() {
-        ViewStub linkOrImgViewStub = (ViewStub) itemView.findViewById(R.id.linkOrImgViewStub);
+        ViewStub linkOrImgViewStub = itemView.findViewById(R.id.linkOrImgViewStub);
         switch (type) {
             case CircleAdapter.ITEM_VIEW_TYPE_URL:// 链接view
                 linkOrImgViewStub.setLayoutResource(R.layout.item_circle_viewstub_urlbody);
                 linkOrImgViewStub.inflate();
-                LinearLayout urlBodyView = (LinearLayout) itemView.findViewById(R.id.urlBody);
+                LinearLayout urlBodyView = itemView.findViewById(R.id.urlBody);
                 if (urlBodyView != null) {
-                   urlBody = urlBodyView;
-                   urlImageIv = (ImageView) itemView.findViewById(R.id.urlImageIv);
-                   urlContentTv = (TextView) itemView.findViewById(R.id.urlContentTv);
+                    urlBody = urlBodyView;
+                    urlImageIv = itemView.findViewById(R.id.urlImageIv);
+                    urlContentTv = itemView.findViewById(R.id.urlContentTv);
                 }
                 break;
             case CircleAdapter.ITEM_VIEW_TYPE_IMAGE:// 图文view
             default:
                 linkOrImgViewStub.setLayoutResource(R.layout.item_circle_viewstub_imgbody);
                 linkOrImgViewStub.inflate();
-                MultiImageView multiImageView = (MultiImageView) itemView.findViewById(R.id.multiImagView);
+                MultiImageView multiImageView = itemView.findViewById(R.id.multiImagView);
                 if (multiImageView != null) {
                     this.multiImageView = multiImageView;
                 }
                 break;
         }
-        headIv = (ImageView) itemView.findViewById(R.id.headIv);
-        nameTv = (TextView) itemView.findViewById(R.id.nameTv);
+        headIv = itemView.findViewById(R.id.headIv);
+        nameTv = itemView.findViewById(R.id.nameTv);
         digLine = itemView.findViewById(R.id.lin_dig);
 
-        contentTv = (ExpandableTextView) itemView.findViewById(R.id.contentTv);
-        urlTipTv = (TextView) itemView.findViewById(R.id.urlTipTv);
-        timeTv = (TextView) itemView.findViewById(R.id.timeTv);
-        tvAddressOrDistance = (TextView) itemView.findViewById(R.id.tv_address_or_distance);
-        deleteBtn = (TextView) itemView.findViewById(R.id.deleteBtn);
-        favortBtn = (TextView) itemView.findViewById(R.id.favortBtn);
-        snsBtn = (TextView) itemView.findViewById(R.id.commentBtn);
-        ll_comment = (LinearLayout) itemView.findViewById(R.id.ll_comment);
+        contentTv = itemView.findViewById(R.id.contentTv);
+        urlTipTv = itemView.findViewById(R.id.urlTipTv);
+        timeTv = itemView.findViewById(R.id.timeTv);
+        tvAddressOrDistance = itemView.findViewById(R.id.tv_address_or_distance);
+        deleteBtn = itemView.findViewById(R.id.deleteBtn);
+        favortBtn = itemView.findViewById(R.id.favortBtn);
+        snsBtn = itemView.findViewById(R.id.commentBtn);
+        ll_comment = itemView.findViewById(R.id.ll_comment);
 
-        favortListTv = (FavortListView) itemView.findViewById(R.id.favortListTv);
+        favortListTv = itemView.findViewById(R.id.favortListTv);
 
-        digCommentBody = (LinearLayout) itemView.findViewById(R.id.digCommentBody);
+        digCommentBody = itemView.findViewById(R.id.digCommentBody);
 
-        commentList = (CommentListView) itemView.findViewById(R.id.commentList);
+        commentList = itemView.findViewById(R.id.commentList);
         commentAdapter = new CommentAdapter(mContext);
         favortListAdapter = new FavortListAdapter();
 
@@ -156,20 +159,21 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * 设置数据
+     *
      * @param circleItem2
      * @param position2
      */
-    public void setData(CircleZonePresenter mPresenter2, CircleItem circleItem2, final int position2){
-        if(mPresenter2==null||circleItem2==null){
+    public void setData(CircleZonePresenter mPresenter2, CircleItem circleItem2, final int position2) {
+        if (mPresenter2 == null || circleItem2 == null) {
             return;
         }
-        this.circleItem=circleItem2;
-        this.mPresenter=mPresenter2;
-        this.position=position2;
+        this.circleItem = circleItem2;
+        this.mPresenter = mPresenter2;
+        this.position = position2;
         final List<FavortItem> favortDatas = circleItem.getGoodjobs();
         final List<CommentItem> commentsDatas = circleItem.getReplys();
-        boolean hasFavort = circleItem.getGoodjobs().size() > 0 ? true : false;
-        boolean hasComment = circleItem.getReplys().size() > 0 ? true : false;
+        boolean hasFavort = circleItem.getGoodjobs().size() > 0;
+        boolean hasComment = circleItem.getReplys().size() > 0;
         //头像
         ImageLoaderUtils.displayRound(mContext, headIv, DatasUtil.getRandomPhotoUrl());
         nameTv.setText(circleItem.getNickName());
@@ -179,7 +183,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
         tvAddressOrDistance.setText("广州 <7KM");
         contentTv.setVisibility(TextUtils.isEmpty(circleItem.getContent()) ? View.GONE : View.VISIBLE);
         //是否显示删除图标
-        deleteBtn.setVisibility(AppCache.getInstance().getUserId().equals(circleItem.getUserId())?View.VISIBLE:View.GONE);
+        deleteBtn.setVisibility(AppCache.getInstance().getUserId().equals(circleItem.getUserId()) ? View.VISIBLE : View.GONE);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,7 +250,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                     public void onItemClick(int commentPosition) {
                         CommentItem commentItem = commentsDatas.get(commentPosition);
                         if (AppCache.getInstance().getUserId().equals(commentItem.getUserId())) {//复制或者删除自己的评论
-                            CommentDialog dialog = new CommentDialog(mContext, mPresenter, commentItem, position,commentPosition);
+                            CommentDialog dialog = new CommentDialog(mContext, mPresenter, commentItem, position, commentPosition);
                             dialog.show();
                         } else {//回复别人的评论
                             if (mPresenter != null) {
@@ -269,7 +273,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                     public void onItemLongClick(int commentPosition) {
                         //长按进行复制或者删除
                         CommentItem commentItem = commentsDatas.get(commentPosition);
-                        CommentDialog dialog = new CommentDialog(mContext, mPresenter, commentItem, position,commentPosition);
+                        CommentDialog dialog = new CommentDialog(mContext, mPresenter, commentItem, position, commentPosition);
                         dialog.show();
                     }
                 });
@@ -319,17 +323,13 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 //跳到个人朋友圈
-                ToastUitl.showShort("头像点击了"+position);
+                ToastUitl.showShort("头像点击了" + position);
             }
         });
         urlTipTv.setVisibility(View.GONE);
 
     }
 
-    /**
-     * //点赞、取消点赞
-     */
-    private long mLasttime = 0;
     private void favort(String publishId, String publishUserId, int circlePosition, String mTitle, View view) {
         if (System.currentTimeMillis() - mLasttime < 700)//防止快速点击操作
             return;
@@ -342,6 +342,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             }
         }
     }
+
     /**
      * 评论
      */
@@ -355,18 +356,21 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             mPresenter.showEditTextBody(config);
         }
     }
-    public View getRootView(){
+
+    public View getRootView() {
         return itemView.findViewById(R.id.ll_root);
     }
-    public View getCommentListView(){
-            return commentList;
+
+    public View getCommentListView() {
+        return commentList;
     }
-    public int getHeight(){
-        if(itemView!=null){
-        return itemView.getMeasuredHeight();
-            }
-            else{
-            return 0;}
+
+    public int getHeight() {
+        if (itemView != null) {
+            return itemView.getMeasuredHeight();
+        } else {
+            return 0;
         }
+    }
 
 }

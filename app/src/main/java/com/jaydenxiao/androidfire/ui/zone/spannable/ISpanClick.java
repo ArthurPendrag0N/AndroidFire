@@ -6,5 +6,5 @@ package com.jaydenxiao.androidfire.ui.zone.spannable;
  * on 2016.07.11:14
  */
 public interface ISpanClick {
-    public void onClick(int position);
+    void onClick(int position);
 }

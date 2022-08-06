@@ -1,6 +1,5 @@
 package com.jaydenxiao.common.commonutils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
@@ -9,19 +8,22 @@ import android.graphics.Paint;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+
 /**
  * description:glide转换圆角图片
  * Created by xsf
  * on 2016.04.15:17
  */
 public class GlideRoundTransformUtil extends BitmapTransformation {
-    public GlideRoundTransformUtil(Context context) {
-        super(context);
-    }
+//    public GlideRoundTransformUtil(Context context) {
+//        super(context);
+//    }
 
-    @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return circleCrop(pool, toTransform);
-    }
+//    @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+//        return circleCrop(pool, toTransform);
+//    }
 
     private static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
@@ -47,7 +49,30 @@ public class GlideRoundTransformUtil extends BitmapTransformation {
         return result;
     }
 
-    @Override public String getId() {
-        return getClass().getName();
+    private static final String ID = "com.jaydenxiao.common.commonutils.GlideRoundTransformUtil";
+    private static final byte[] ID_BYTES = ID.getBytes(Charset.forName("UTF-8"));
+
+    @Override
+    public Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        if (toTransform.getWidth() == outWidth && toTransform.getHeight() == outHeight) {
+            return toTransform;
+        }
+
+        return circleCrop(pool, toTransform);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof GlideRoundTransformUtil;
+    }
+
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
+    }
+
+    @Override
+    public void updateDiskCacheKey(MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
     }
 }

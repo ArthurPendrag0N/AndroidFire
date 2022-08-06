@@ -2,8 +2,10 @@ package com.jaydenxiao.common.commonutils;
 
 
 import com.jaydenxiao.common.baseapp.AppConfig;
-import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
  * 如果用于android平台，将信息记录到“LogCat”。如果用于java平台，将信息记录到“Console”
@@ -16,18 +18,23 @@ public class LogUtils {
      */
     public static void logInit(boolean debug) {
         DEBUG_ENABLE=debug;
+        FormatStrategy formatStrategy;
         if (DEBUG_ENABLE) {
-            Logger.init(AppConfig.DEBUG_TAG)                 // default PRETTYLOGGER or use just init()
-                    .methodCount(2)                 // default 2
-                    .logLevel(LogLevel.FULL)        // default LogLevel.FULL
-                    .methodOffset(0);                // default 0
+            formatStrategy = PrettyFormatStrategy.newBuilder()
+                    .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+                    .methodCount(2)         // (Optional) How many method line to show. Default 2
+                    .methodOffset(0)        // (Optional) Hides internal method calls up to offset. Default 5
+                    .tag(AppConfig.DEBUG_TAG)   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                    .build();
         } else {
-            Logger.init()                 // default PRETTYLOGGER or use just init()
-                    .methodCount(3)                 // default 2
-                    .hideThreadInfo()               // default shown
-                    .logLevel(LogLevel.NONE)        // default LogLevel.FULL
-                    .methodOffset(2);
+            formatStrategy = PrettyFormatStrategy.newBuilder()
+                    .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+                    .methodCount(3)         // (Optional) How many method line to show. Default 2
+                    .methodOffset(2)        // (Optional) Hides internal method calls up to offset. Default 5
+                    .tag("My custom tag")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                    .build();
         }
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
     }
     public static void logd(String tag,String message) {
         if (DEBUG_ENABLE) {

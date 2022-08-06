@@ -33,7 +33,7 @@ public interface NewsChannelContract {
         void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMore);
     }
 
-    abstract static class Presenter extends BasePresenter<View, Model> {
+    abstract class Presenter extends BasePresenter<View, Model> {
         public abstract void lodeChannelsRequest();
 
         public abstract void onItemSwap(ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, final int toPosition);

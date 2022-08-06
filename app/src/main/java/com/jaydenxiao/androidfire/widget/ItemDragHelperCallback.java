@@ -16,25 +16,21 @@
  */
 package com.jaydenxiao.androidfire.widget;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class ItemDragHelperCallback extends ItemTouchHelper.Callback {
-    private OnItemMoveListener mOnItemMoveListener;
+    private final OnItemMoveListener mOnItemMoveListener;
     private boolean mIsLongPressEnabled;
-
-    public void setLongPressEnabled(boolean longPressEnabled) {
-        mIsLongPressEnabled = longPressEnabled;
-    }
-
-    public interface OnItemMoveListener {
-        boolean onItemMove(int fromPosition, int toPosition);
-    }
 
     public ItemDragHelperCallback(OnItemMoveListener onItemMoveListener) {
         mOnItemMoveListener = onItemMoveListener;
+    }
+
+    public void setLongPressEnabled(boolean longPressEnabled) {
+        mIsLongPressEnabled = longPressEnabled;
     }
 
     @Override
@@ -80,5 +76,9 @@ public class ItemDragHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
+    }
+
+    public interface OnItemMoveListener {
+        boolean onItemMove(int fromPosition, int toPosition);
     }
 }

@@ -1,5 +1,7 @@
 package com.jaydenxiao.common.commonutils;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.content.Context;
 import android.widget.ImageView;
 
@@ -20,7 +22,7 @@ public class ImageLoaderUtils {
             throw new IllegalArgumentException("argument error");
         }
         Glide.with(context).load(url).placeholder(placeholder)
-                .error(error).crossFade().into(imageView);
+                .error(error).transition(withCrossFade()).into(imageView);
     }
 
     public static void display(Context context, ImageView imageView, String url) {
@@ -32,7 +34,7 @@ public class ImageLoaderUtils {
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
-                .crossFade().into(imageView);
+                .transition(withCrossFade()).into(imageView);
     }
 
     public static void display(Context context, ImageView imageView, File url) {
@@ -44,13 +46,13 @@ public class ImageLoaderUtils {
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
-                .crossFade().into(imageView);
+                .transition(withCrossFade()).into(imageView);
     }
     public static void displaySmallPhoto(Context context, ImageView imageView, String url) {
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url).asBitmap()
+        Glide.with(context).asBitmap().load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
@@ -61,7 +63,7 @@ public class ImageLoaderUtils {
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
-        Glide.with(context).load(url).asBitmap()
+        Glide.with(context).asBitmap().load(url)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_image_loading)
@@ -77,7 +79,7 @@ public class ImageLoaderUtils {
                 .centerCrop()
                 .placeholder(R.drawable.ic_image_loading)
                 .error(R.drawable.ic_empty_picture)
-                .crossFade().into(imageView);
+                .transition(withCrossFade()).into(imageView);
     }
     public static void displayRound(Context context,ImageView imageView, String url) {
         if (imageView == null) {
@@ -86,7 +88,7 @@ public class ImageLoaderUtils {
         Glide.with(context).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.toux2)
-                .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
+                .centerCrop().transform(new GlideRoundTransformUtil()).into(imageView);
     }
     public static void displayRound(Context context,ImageView imageView, int resId) {
         if (imageView == null) {
@@ -95,7 +97,7 @@ public class ImageLoaderUtils {
         Glide.with(context).load(resId)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.toux2)
-                .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
+                .centerCrop().transform(new GlideRoundTransformUtil()).into(imageView);
     }
 
 }

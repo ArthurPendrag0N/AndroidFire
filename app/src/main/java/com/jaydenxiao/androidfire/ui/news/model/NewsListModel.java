@@ -23,6 +23,7 @@ import rx.functions.Func2;
 public class NewsListModel implements NewsListContract.Model {
     /**
      * 获取新闻列表
+     *
      * @param type
      * @param id
      * @param startPage
@@ -30,7 +31,7 @@ public class NewsListModel implements NewsListContract.Model {
      */
     @Override
     public Observable<List<NewsSummary>> getNewsListData(final String type, final String id, final int startPage) {
-       return Api.getDefault(HostType.NETEASE_NEWS_VIDEO).getNewsList(Api.getCacheControl(),type, id, startPage)
+        return Api.getDefault(HostType.NETEASE_NEWS_VIDEO).getNewsList(Api.getCacheControl(), type, id, startPage)
                 .flatMap(new Func1<Map<String, List<NewsSummary>>, Observable<NewsSummary>>() {
                     @Override
                     public Observable<NewsSummary> call(Map<String, List<NewsSummary>> map) {
@@ -58,6 +59,6 @@ public class NewsListModel implements NewsListContract.Model {
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<List<NewsSummary>>io_main());
+                .compose(RxSchedulers.io_main());
     }
 }

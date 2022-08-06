@@ -1,10 +1,8 @@
-
 package com.jaydenxiao.androidfire.ui.news.activity;
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -12,28 +10,31 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.jaydenxiao.androidfire.R;
 import com.jaydenxiao.androidfire.app.AppConstant;
 import com.jaydenxiao.common.base.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class NewsBrowserActivity extends BaseActivity {
 
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.progress_bar)
+    @BindView(R.id.progress_bar)
     ProgressBar progressBar;
-    @Bind(R.id.web_view)
+    @BindView(R.id.web_view)
     WebView webView;
 
-    public static void startAction(Context context ,String link,String title){
+    public static void startAction(Context context, String link, String title) {
         Intent intent = new Intent(context, NewsBrowserActivity.class);
-        intent.putExtra(AppConstant.NEWS_LINK,link);
-        intent.putExtra(AppConstant.NEWS_TITLE,title);
+        intent.putExtra(AppConstant.NEWS_LINK, link);
+        intent.putExtra(AppConstant.NEWS_TITLE, title);
         context.startActivity(intent);
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.act_news_browser;
@@ -43,6 +44,7 @@ public class NewsBrowserActivity extends BaseActivity {
     public void initPresenter() {
 
     }
+
     @Override
     public void initView() {
         initWebView();
@@ -93,7 +95,7 @@ public class NewsBrowserActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if(webView!=null) {
+        if (webView != null) {
             webView.removeAllViews();
             webView.destroy();
         }

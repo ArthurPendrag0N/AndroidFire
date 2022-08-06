@@ -33,6 +33,12 @@ import rx.functions.Action1;
  * on 2016.07.15:57
  */
 public class CircleZonePresenter extends CircleZoneContract.Presenter {
+    /**
+     * 删除朋友圈
+     *
+     * @param circleId
+     */
+    MDAlertDialog mdAlertDialog;
     //点赞效果
     private GoodView mGoodView;
 
@@ -114,15 +120,9 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
 
     }
 
-    /**
-     * 删除朋友圈
-     *
-     * @param circleId
-     */
-     MDAlertDialog mdAlertDialog;
     @Override
     public void deleteCircle(final String circleId, final int position) {
-       mdAlertDialog = new MDAlertDialog.Builder(mContext)
+        mdAlertDialog = new MDAlertDialog.Builder(mContext)
                 .setHeight(0.25f)  //屏幕高度*0.3
                 .setWidth(0.7f)  //屏幕宽度*0.7
                 .setTitleVisible(true)

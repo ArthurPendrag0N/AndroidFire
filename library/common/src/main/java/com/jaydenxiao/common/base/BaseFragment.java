@@ -2,11 +2,12 @@ package com.jaydenxiao.common.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.jaydenxiao.common.R;
 import com.jaydenxiao.common.baserx.RxManager;
@@ -15,6 +16,7 @@ import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * des:基类fragment
@@ -58,6 +60,7 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
     public T mPresenter;
     public E mModel;
     public RxManager mRxManager;
+    private Unbinder mUnbinder;
 
     @Nullable
     @Override
@@ -65,7 +68,7 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
         if (rootView == null)
             rootView = inflater.inflate(getLayoutResource(), container, false);
         mRxManager=new RxManager();
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
         mPresenter = TUtil.getT(this, 0);
         mModel= TUtil.getT(this,1);
         if(mPresenter!=null){
@@ -195,7 +198,7 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
         if (mPresenter != null)
             mPresenter.onDestroy();
         mRxManager.clear();

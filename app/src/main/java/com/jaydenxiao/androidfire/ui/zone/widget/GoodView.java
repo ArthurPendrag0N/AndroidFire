@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -18,6 +17,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * des:点赞效果
@@ -56,6 +57,13 @@ public class GoodView extends PopupWindow implements IGoodView {
         super(context);
         mContext = context;
         initView();
+    }
+
+    private static int getTextViewHeight(TextView textView, int width) {
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        textView.measure(widthMeasureSpec, heightMeasureSpec);
+        return textView.getMeasuredHeight();
     }
 
     private void initView() {
@@ -103,13 +111,6 @@ public class GoodView extends PopupWindow implements IGoodView {
         int w = (int) mGood.getPaint().measureText(text);
         setWidth(w);
         setHeight(mDistance + getTextViewHeight(mGood, w));
-    }
-
-    private static int getTextViewHeight(TextView textView, int width) {
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        textView.measure(widthMeasureSpec, heightMeasureSpec);
-        return textView.getMeasuredHeight();
     }
 
     /**

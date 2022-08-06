@@ -1,9 +1,11 @@
 package com.jaydenxiao.androidfire.ui.main.fragment;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
@@ -13,6 +15,7 @@ import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleView
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jaydenxiao.androidfire.R;
 import com.jaydenxiao.androidfire.bean.PhotoGirl;
 import com.jaydenxiao.androidfire.ui.news.activity.PhotosDetailActivity;
@@ -25,24 +28,24 @@ import com.jaydenxiao.common.commonwidget.NormalTitleBar;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * des:图片首页
  * Created by xsf
  * on 2016.09.11:49
  */
-public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosListModel> implements PhotoListContract.View ,OnRefreshListener,OnLoadMoreListener{
-    @Bind(R.id.ntb)
+public class PhotosMainFragment extends BaseFragment<PhotosListPresenter, PhotosListModel> implements PhotoListContract.View, OnRefreshListener, OnLoadMoreListener {
+    private static final int SIZE = 20;
+    @BindView(R.id.ntb)
     NormalTitleBar ntb;
-    @Bind(R.id.irc)
+    @BindView(R.id.irc)
     IRecyclerView irc;
-    @Bind(R.id.loadedTip)
+    @BindView(R.id.loadedTip)
     LoadingTip loadedTip;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
-    private CommonRecycleViewAdapter<PhotoGirl>adapter;
-    private static int SIZE = 20;
+    private CommonRecycleViewAdapter<PhotoGirl> adapter;
     private int mStartPage = 1;
 
     @Override
@@ -52,28 +55,28 @@ public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosL
 
     @Override
     public void initPresenter() {
-        mPresenter.setVM(this,mModel);
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
     public void initView() {
         ntb.setTvLeftVisiable(false);
         ntb.setTitleText(getString(R.string.girl_title));
-        adapter=new CommonRecycleViewAdapter<PhotoGirl>(getContext(),R.layout.item_photo) {
+        adapter = new CommonRecycleViewAdapter<PhotoGirl>(getContext(), R.layout.item_photo) {
             @Override
-            public void convert(ViewHolderHelper helper,final PhotoGirl photoGirl) {
-                ImageView imageView=helper.getView(R.id.iv_photo);
+            public void convert(ViewHolderHelper helper, final PhotoGirl photoGirl) {
+                ImageView imageView = helper.getView(R.id.iv_photo);
                 Glide.with(mContext).load(photoGirl.getUrl())
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .diskCacheStrategy(DiskCacheStrategy.DATA)
                         .placeholder(com.jaydenxiao.common.R.drawable.ic_image_loading)
                         .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
-                        .centerCrop().override(1090, 1090*3/4)
-                        .crossFade().into(imageView);
+                        .centerCrop().override(1090, 1090 * 3 / 4)
+                        .transition(withCrossFade()).into(imageView);
 
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        PhotosDetailActivity.startAction(mContext,photoGirl.getUrl());
+                        PhotosDetailActivity.startAction(mContext, photoGirl.getUrl());
                     }
                 });
             }
@@ -94,7 +97,7 @@ public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosL
     @Override
     public void returnPhotosListData(List<PhotoGirl> photoGirls) {
         if (photoGirls != null) {
-            mStartPage +=1;
+            mStartPage += 1;
             if (adapter.getPageBean().isRefresh()) {
                 irc.setRefreshing(false);
                 adapter.replaceAll(photoGirls);
@@ -111,8 +114,8 @@ public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosL
 
     @Override
     public void showLoading(String title) {
-        if(adapter.getPageBean().isRefresh())
-        loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        if (adapter.getPageBean().isRefresh())
+            loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
     }
 
     @Override
@@ -122,11 +125,11 @@ public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosL
 
     @Override
     public void showErrorTip(String msg) {
-        if( adapter.getPageBean().isRefresh()) {
+        if (adapter.getPageBean().isRefresh()) {
             loadedTip.setLoadingTip(LoadingTip.LoadStatus.error);
             loadedTip.setTips(msg);
             irc.setRefreshing(false);
-        }else{
+        } else {
             irc.setLoadMoreStatus(LoadMoreFooterView.Status.ERROR);
         }
     }
@@ -139,6 +142,7 @@ public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosL
         irc.setRefreshing(true);
         mPresenter.getPhotosListDataRequest(SIZE, mStartPage);
     }
+
     @Override
     public void onLoadMore(View loadMoreView) {
         adapter.getPageBean().setRefresh(false);

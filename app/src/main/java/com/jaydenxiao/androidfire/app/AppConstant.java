@@ -7,8 +7,8 @@ package com.jaydenxiao.androidfire.app;
  */
 public class AppConstant {
 
-    public static final String HOME_CURRENT_TAB_POSITION="HOME_CURRENT_TAB_POSITION";
-    public static final String MENU_SHOW_HIDE="MENU_SHOW_HIDE";
+    public static final String HOME_CURRENT_TAB_POSITION = "HOME_CURRENT_TAB_POSITION";
+    public static final String MENU_SHOW_HIDE = "MENU_SHOW_HIDE";
 
     /* 新闻*/
     public static final String NEWS_ID = "news_id";
@@ -21,19 +21,15 @@ public class AppConstant {
 
     /* 视频*/
     public static final String VIDEO_TYPE = "VIDEO_TYPE";
-
-    public static String NEWS_LIST_TO_TOP = "NEWS_LIST_TO_TOP";//列表返回顶部
-    public static String ZONE_PUBLISH_ADD = "ZONE_PUBLISH_ADD";//发布说说
-
-    public static String NEWS_POST_ID = "NEWS_POST_ID";//新闻详情id
-    public static String NEWS_LINK = "NEWS_LINK";
-    public static String NEWS_TITLE = "NEWS_TITLE";
-
     public static final String PHOTO_DETAIL_IMGSRC = "photo_detail_imgsrc";
     public static final String PHOTO_DETAIL = "photo_detail";
     public static final String PHOTO_TAB_CLICK = "PHOTO_TAB_CLICK";
-
     public static final String NEWS_IMG_RES = "news_img_res";
     public static final String TRANSITION_ANIMATION_NEWS_PHOTOS = "transition_animation_news_photos";
+    public static String NEWS_LIST_TO_TOP = "NEWS_LIST_TO_TOP";//列表返回顶部
+    public static String ZONE_PUBLISH_ADD = "ZONE_PUBLISH_ADD";//发布说说
+    public static String NEWS_POST_ID = "NEWS_POST_ID";//新闻详情id
+    public static String NEWS_LINK = "NEWS_LINK";
+    public static String NEWS_TITLE = "NEWS_TITLE";
 
 }

@@ -25,19 +25,22 @@ import com.jaydenxiao.androidfire.ui.main.fragment.VideoMainFragment;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.baseapp.AppConfig;
 import com.jaydenxiao.common.commonutils.LogUtils;
+import com.jaydenxiao.common.daynightmodeutils.ChangeModeController;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import cn.hugeterry.updatefun.UpdateFunGO;
 import cn.hugeterry.updatefun.config.UpdateKey;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import rx.functions.Action1;
 
 /**
  * des:主界面
  * Created by xsf
  * on 2016.09.15:32
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity22 extends BaseActivity {
     private static int tabLayoutHeight;
     private final String[] mTitles = {"首页", "美女", "视频", "关注"};
     private final int[] mIconUnselectIds = {
@@ -59,7 +62,7 @@ public class MainActivity extends BaseActivity {
      * @param activity
      */
     public static void startAction(Activity activity) {
-        Intent intent = new Intent(activity, MainActivity.class);
+        Intent intent = new Intent(activity, MainActivity22.class);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.fade_in,
                 com.jaydenxiao.common.R.anim.fade_out);
@@ -90,14 +93,14 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //切换daynight模式要立即变色的页面
-        //ChangeModeController.getInstance().init(this, R.attr.class);
+        ChangeModeController.getInstance().init(this, R.attr.class);
         super.onCreate(savedInstanceState);
         //初始化fragment
-        //initFragment(savedInstanceState);
+        initFragment(savedInstanceState);
         tabLayout.measure(0, 0);
         tabLayoutHeight = tabLayout.getMeasuredHeight();
         //监听菜单显示或隐藏
-        //mRxManager.on(AppConstant.MENU_SHOW_HIDE, (Action1<Boolean>) hideOrShow -> startAnimation(hideOrShow));
+        mRxManager.on(AppConstant.MENU_SHOW_HIDE, (Action1<Boolean>) hideOrShow -> startAnimation(hideOrShow));
     }
 
     /**
@@ -227,9 +230,9 @@ public class MainActivity extends BaseActivity {
      */
     @Override
     public void onBackPressed() {
-//        if (JCVideoPlayer.backPress()) {
-//            return;
-//        }
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
         super.onBackPressed();
     }
 
@@ -253,11 +256,11 @@ public class MainActivity extends BaseActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //奔溃前保存位置
-//        LogUtils.loge("onSaveInstanceState进来了1");
-//        if (tabLayout != null) {
-//            LogUtils.loge("onSaveInstanceState进来了2");
-//            outState.putInt(AppConstant.HOME_CURRENT_TAB_POSITION, tabLayout.getCurrentTab());
-//        }
+        LogUtils.loge("onSaveInstanceState进来了1");
+        if (tabLayout != null) {
+            LogUtils.loge("onSaveInstanceState进来了2");
+            outState.putInt(AppConstant.HOME_CURRENT_TAB_POSITION, tabLayout.getCurrentTab());
+        }
     }
 
     @Override
@@ -275,6 +278,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ChangeModeController.onDestory();
+        ChangeModeController.onDestory();
     }
 }

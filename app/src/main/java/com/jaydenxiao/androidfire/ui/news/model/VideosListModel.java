@@ -23,7 +23,7 @@ public class VideosListModel implements VideosListContract.Model {
 
     @Override
     public Observable<List<VideoData>> getVideosListData(final String type, int startPage) {
-        return Api.getDefault(HostType.NETEASE_NEWS_VIDEO).getVideoList(Api.getCacheControl(),type,startPage)
+        return Api.getDefault(HostType.NETEASE_NEWS_VIDEO).getVideoList(Api.getCacheControl(), type, startPage)
                 .flatMap(new Func1<Map<String, List<VideoData>>, Observable<VideoData>>() {
                     @Override
                     public Observable<VideoData> call(Map<String, List<VideoData>> map) {
@@ -47,6 +47,6 @@ public class VideosListModel implements VideosListContract.Model {
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<List<VideoData>>io_main());
+                .compose(RxSchedulers.io_main());
     }
 }

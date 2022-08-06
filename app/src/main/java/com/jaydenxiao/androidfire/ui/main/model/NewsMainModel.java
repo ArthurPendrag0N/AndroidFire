@@ -27,13 +27,13 @@ public class NewsMainModel implements NewsMainContract.Model {
             @Override
             public void call(Subscriber<? super List<NewsChannelTable>> subscriber) {
                 ArrayList<NewsChannelTable> newsChannelTableList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext()).getAsObject(AppConstant.CHANNEL_MINE);
-               if(newsChannelTableList==null){
-                   newsChannelTableList= (ArrayList<NewsChannelTable>) NewsChannelTableManager.loadNewsChannelsStatic();
-                   ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE,newsChannelTableList);
-               }
+                if (newsChannelTableList == null) {
+                    newsChannelTableList = (ArrayList<NewsChannelTable>) NewsChannelTableManager.loadNewsChannelsStatic();
+                    ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE, newsChannelTableList);
+                }
                 subscriber.onNext(newsChannelTableList);
                 subscriber.onCompleted();
             }
-        }).compose(RxSchedulers.<List<NewsChannelTable>>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 }

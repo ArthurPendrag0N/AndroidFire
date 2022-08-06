@@ -3,11 +3,12 @@ package com.jaydenxiao.androidfire.ui.zone.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 
 import com.jaydenxiao.androidfire.R;
 import com.jaydenxiao.androidfire.app.AppConstant;
@@ -25,7 +26,7 @@ import com.yuyh.library.imgsel.ImgSelConfig;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -34,17 +35,24 @@ import butterknife.OnClick;
  * on 2016.09.11:49
  */
 public class CirclePublishActivity extends BaseActivity implements View.OnClickListener {
-    @Bind(R.id.ntb)
+    @BindView(R.id.ntb)
     NormalTitleBar ntb;
-    @Bind(R.id.et_content)
+    @BindView(R.id.et_content)
     EditText etContent;
-    @Bind(R.id.gridview)
+    @BindView(R.id.gridview)
     NoScrollGridView gridview;
     private NinePicturesAdapter ninePicturesAdapter;
-    private int REQUEST_CODE=120;
+    private final int REQUEST_CODE = 120;
+    private final ImageLoader loader = new ImageLoader() {
+        @Override
+        public void displayImage(Context context, String path, ImageView imageView) {
+            ImageLoaderUtils.display(context, imageView, path);
+        }
+    };
 
     /**
      * 启动入口
+     *
      * @param context
      */
     public static void startAction(Context context) {
@@ -65,7 +73,7 @@ public class CirclePublishActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
         ntb.setTitleText(getString(R.string.zone_publish_title));
-        ninePicturesAdapter = new NinePicturesAdapter(this,9, new NinePicturesAdapter.OnClickAddListener() {
+        ninePicturesAdapter = new NinePicturesAdapter(this, 9, new NinePicturesAdapter.OnClickAddListener() {
             @Override
             public void onClickAdd(int positin) {
                 choosePhoto();
@@ -74,28 +82,28 @@ public class CirclePublishActivity extends BaseActivity implements View.OnClickL
         gridview.setAdapter(ninePicturesAdapter);
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_save})
+    @OnClick({R.id.tv_back, R.id.tv_save})
     public void onClick(View view) {
-      switch (view.getId()){
-          case R.id.tv_back:
-              finish();
-          break;
-          case R.id.tv_save:
-              if(!TextUtils.isEmpty(etContent.getText().toString())) {
-                  CircleItem circleItem = new CircleItem();
-                  circleItem.setContent(etContent.getText().toString());
-                  circleItem.setPictures(getPictureString());
-                  circleItem.setIcon(AppCache.getInstance().getIcon());
-                  circleItem.setUserId(AppCache.getInstance().getUserId());
-                  circleItem.setNickName(AppCache.getInstance().getUserName());
-                  circleItem.setCreateTime(Long.parseLong("1471942968000"));
-                  mRxManager.post(AppConstant.ZONE_PUBLISH_ADD,circleItem);
-                  finish();
-              }else{
-                  ToastUitl.showToastWithImg(getString(R.string.circle_publish_empty),R.drawable.ic_warm);
-              }
-              break;
-      }
+        switch (view.getId()) {
+            case R.id.tv_back:
+                finish();
+                break;
+            case R.id.tv_save:
+                if (!TextUtils.isEmpty(etContent.getText().toString())) {
+                    CircleItem circleItem = new CircleItem();
+                    circleItem.setContent(etContent.getText().toString());
+                    circleItem.setPictures(getPictureString());
+                    circleItem.setIcon(AppCache.getInstance().getIcon());
+                    circleItem.setUserId(AppCache.getInstance().getUserId());
+                    circleItem.setNickName(AppCache.getInstance().getUserName());
+                    circleItem.setCreateTime(Long.parseLong("1471942968000"));
+                    mRxManager.post(AppConstant.ZONE_PUBLISH_ADD, circleItem);
+                    finish();
+                } else {
+                    ToastUitl.showToastWithImg(getString(R.string.circle_publish_empty), R.drawable.ic_warm);
+                }
+                break;
+        }
     }
 
     /**
@@ -107,32 +115,26 @@ public class CirclePublishActivity extends BaseActivity implements View.OnClickL
                 .multiSelect(true)
                 // 确定按钮背景色
                 .btnBgColor(Color.TRANSPARENT)
-                .titleBgColor(ContextCompat.getColor(this,R.color.main_color))
+                .titleBgColor(ContextCompat.getColor(this, R.color.main_color))
                 // 使用沉浸式状态栏
-                .statusBarColor(ContextCompat.getColor(this,R.color.main_color))
+                .statusBarColor(ContextCompat.getColor(this, R.color.main_color))
                 // 返回图标ResId
                 .backResId(R.drawable.ic_arrow_back)
                 .title("图片")
                 // 第一个是否显示相机
                 .needCamera(true)
                 // 最大选择图片数量
-                .maxNum(9-ninePicturesAdapter.getPhotoCount())
+                .maxNum(9 - ninePicturesAdapter.getPhotoCount())
                 .build();
         ImgSelActivity.startActivity(this, config, REQUEST_CODE);
     }
-    private ImageLoader loader = new ImageLoader() {
-        @Override
-        public void displayImage(Context context, String path, ImageView imageView) {
-            ImageLoaderUtils.display(context,imageView,path);
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
-            if(ninePicturesAdapter!=null){
+            if (ninePicturesAdapter != null) {
                 ninePicturesAdapter.addAll(pathList);
             }
         }
@@ -140,9 +142,10 @@ public class CirclePublishActivity extends BaseActivity implements View.OnClickL
 
     /**
      * 获取到拼接好的图片
+     *
      * @return
      */
-    private String getPictureString(){
+    private String getPictureString() {
         //拼接图片链接
         List<String> strings = ninePicturesAdapter.getData();
         if (strings != null && strings.size() > 0) {
@@ -156,10 +159,10 @@ public class CirclePublishActivity extends BaseActivity implements View.OnClickL
                 String url = allUrl.toString();
                 url = url.substring(0, url.lastIndexOf(";"));
                 return url;
-            }else{
+            } else {
                 return "";
             }
-        }else{
+        } else {
             return "";
         }
     }

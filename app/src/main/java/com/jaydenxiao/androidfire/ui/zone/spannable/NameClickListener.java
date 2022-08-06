@@ -10,8 +10,8 @@ import com.jaydenxiao.common.commonutils.ToastUitl;
  * on 2016.07.11:14
  */
 public class NameClickListener implements ISpanClick {
-    private SpannableString userName;
-    private String userId;
+    private final SpannableString userName;
+    private final String userId;
 
     public NameClickListener(SpannableString name, String userid) {
         this.userName = name;
@@ -20,6 +20,6 @@ public class NameClickListener implements ISpanClick {
 
     @Override
     public void onClick(int position) {
-        ToastUitl.showShort("点击了"+position);
+        ToastUitl.showShort("点击了" + position);
     }
 }

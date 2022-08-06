@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.jaydenxiao.common.BuildConfig;
 import com.jaydenxiao.common.R;
@@ -22,6 +23,7 @@ import com.jaydenxiao.common.daynightmodeutils.ChangeModeController;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 基类
@@ -72,6 +74,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         mRxManager=new RxManager();
         doBeforeSetcontentView();
         setContentView(getLayoutId());
+        ButterKnife.setDebug(true);
         ButterKnife.bind(this);
         mContext = this;
         mPresenter = TUtil.getT(this, 0);
@@ -278,7 +281,6 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         if(!isConfigChange){
             AppManager.getAppManager().finishActivity(this);
         }
-        ButterKnife.unbind(this);
-
+        //ButterKnife.unbind(this);
     }
 }

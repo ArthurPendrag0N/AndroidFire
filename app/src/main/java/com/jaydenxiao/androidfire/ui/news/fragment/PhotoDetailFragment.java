@@ -11,7 +11,7 @@ import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.Observable;
 import rx.Subscriber;
 import uk.co.senab.photoview.PhotoView;
@@ -23,9 +23,9 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * on 2016.09.9:57
  */
 public class PhotoDetailFragment extends BaseFragment {
-    @Bind(R.id.photo_view)
+    @BindView(R.id.photo_view)
     PhotoView photoView;
-    @Bind(R.id.progress_bar)
+    @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     private String mImgSrc;
 
@@ -51,7 +51,7 @@ public class PhotoDetailFragment extends BaseFragment {
 
     private void initPhotoView() {
         mRxManager.add(Observable.timer(100, TimeUnit.MILLISECONDS) // 直接使用glide加载的话，activity切换动画时背景短暂为默认背景色
-                .compose(RxSchedulers.<Long>io_main())
+                .compose(RxSchedulers.io_main())
                 .subscribe(new Subscriber<Long>() {
                     @Override
                     public void onCompleted() {
@@ -65,7 +65,7 @@ public class PhotoDetailFragment extends BaseFragment {
 
                     @Override
                     public void onNext(Long aLong) {
-                        ImageLoaderUtils.displayBigPhoto(getContext(),photoView,mImgSrc);
+                        ImageLoaderUtils.displayBigPhoto(getContext(), photoView, mImgSrc);
                     }
                 }));
     }
@@ -74,7 +74,7 @@ public class PhotoDetailFragment extends BaseFragment {
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float v, float v1) {
-                mRxManager.post(AppConstant.PHOTO_TAB_CLICK,"");
+                mRxManager.post(AppConstant.PHOTO_TAB_CLICK, "");
             }
         });
     }

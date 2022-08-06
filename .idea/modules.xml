@@ -2,15 +2,36 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidFire.iml" filepath="$PROJECT_DIR$/AndroidFire.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/common/common.iml" filepath="$PROJECT_DIR$/library/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/irecyclerview/irecyclerview.iml" filepath="$PROJECT_DIR$/library/irecyclerview/irecyclerview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/jcvideoplayer/jcvideoplayer.iml" filepath="$PROJECT_DIR$/library/jcvideoplayer/jcvideoplayer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/oneKeyShareSDK/oneKeyShareSDK.iml" filepath="$PROJECT_DIR$/library/oneKeyShareSDK/oneKeyShareSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/photoPicker/photoPicker.iml" filepath="$PROJECT_DIR$/library/photoPicker/photoPicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/selectordialog/selectordialog.iml" filepath="$PROJECT_DIR$/library/selectordialog/selectordialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidFire.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidFire.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidFire.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/AndroidFire.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/AndroidFire.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.iml" filepath="$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/common/AndroidFire.library.common.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.iml" filepath="$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/irecyclerview/AndroidFire.library.irecyclerview.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.iml" filepath="$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/jcvideoplayer/AndroidFire.library.jcvideoplayer.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/oneKeyShareSDK/AndroidFire.library.oneKeyShareSDK.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.iml" filepath="$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/photoPicker/AndroidFire.library.photoPicker.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.iml" filepath="$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/selectordialog/AndroidFire.library.selectordialog.unitTest.iml" />
     </modules>
   </component>
 </project>

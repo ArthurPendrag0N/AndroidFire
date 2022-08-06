@@ -17,13 +17,14 @@ import rx.Observable;
 public interface NewsMainContract {
 
     interface Model extends BaseModel {
-        Observable< List<NewsChannelTable> > lodeMineNewsChannels();
+        Observable<List<NewsChannelTable>> lodeMineNewsChannels();
     }
 
     interface View extends BaseView {
         void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine);
     }
-    abstract static class Presenter extends BasePresenter<View, Model> {
+
+    abstract class Presenter extends BasePresenter<View, Model> {
         public abstract void lodeMineChannelsRequest();
     }
 }

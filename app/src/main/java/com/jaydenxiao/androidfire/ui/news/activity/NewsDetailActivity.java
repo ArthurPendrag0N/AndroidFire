@@ -1,18 +1,13 @@
 package com.jaydenxiao.androidfire.ui.news.activity;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +15,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
+
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jaydenxiao.androidfire.R;
 import com.jaydenxiao.androidfire.app.AppConstant;
 import com.jaydenxiao.androidfire.bean.NewsDetail;
@@ -35,7 +38,7 @@ import com.jaydenxiao.common.commonutils.TimeUtil;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -46,24 +49,24 @@ import rx.Subscriber;
  */
 public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDetailModel> implements NewsDetailContract.View {
 
-
-    @Bind(R.id.news_detail_photo_iv)
+    // TODO:change to ViewBind
+    @BindView(R.id.news_detail_photo_iv)
     ImageView newsDetailPhotoIv;
-    @Bind(R.id.mask_view)
+    @BindView(R.id.mask_view)
     View maskView;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_layout)
+    @BindView(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
-    @Bind(R.id.app_bar)
+    @BindView(R.id.app_bar)
     AppBarLayout appBar;
-    @Bind(R.id.news_detail_from_tv)
+    @BindView(R.id.news_detail_from_tv)
     TextView newsDetailFromTv;
-    @Bind(R.id.news_detail_body_tv)
+    @BindView(R.id.news_detail_body_tv)
     TextView newsDetailBodyTv;
-    @Bind(R.id.progress_bar)
+    @BindView(R.id.progress_bar)
     ProgressBar progressBar;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
     private String postId;
     private URLImageGetter mUrlImageGetter;
@@ -76,21 +79,21 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
      * @param mContext
      * @param postId
      */
-    public static void startAction(Context mContext, View view,String postId, String imgUrl) {
+    public static void startAction(Context mContext, View view, String postId, String imgUrl) {
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra(AppConstant.NEWS_POST_ID, postId);
         intent.putExtra(AppConstant.NEWS_IMG_RES, imgUrl);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation((Activity) mContext,view, AppConstant.TRANSITION_ANIMATION_NEWS_PHOTOS);
+                    .makeSceneTransitionAnimation((Activity) mContext, view, AppConstant.TRANSITION_ANIMATION_NEWS_PHOTOS);
             mContext.startActivity(intent, options.toBundle());
         } else {
 
             //让新的Activity从一个小的范围扩大到全屏
             ActivityOptionsCompat options = ActivityOptionsCompat
                     .makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
-            ActivityCompat.startActivity((Activity) mContext, intent, options.toBundle());
+            ActivityCompat.startActivity(mContext, intent, options.toBundle());
         }
 
     }
@@ -183,12 +186,12 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
         Glide.with(this).load(imgSrc)
                 .fitCenter()
                 .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
-                .crossFade().into(newsDetailPhotoIv);
+                .transition(withCrossFade()).into(newsDetailPhotoIv);
     }
 
     private void setNewsDetailBodyTv(final NewsDetail newsDetail, final String newsBody) {
         mRxManager.add(Observable.timer(500, TimeUnit.MILLISECONDS)
-                .compose(RxSchedulers.<Long>io_main())
+                .compose(RxSchedulers.io_main())
                 .subscribe(new Subscriber<Long>() {
                     @Override
                     public void onCompleted() {

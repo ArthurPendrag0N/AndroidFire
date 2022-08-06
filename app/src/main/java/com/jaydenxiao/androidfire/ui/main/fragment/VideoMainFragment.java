@@ -1,14 +1,15 @@
 package com.jaydenxiao.androidfire.ui.main.fragment;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.jaydenxiao.androidfire.R;
 import com.jaydenxiao.androidfire.app.AppConstant;
 import com.jaydenxiao.androidfire.bean.VideoChannelTable;
@@ -21,7 +22,7 @@ import com.jaydenxiao.common.base.BaseFragmentAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -32,11 +33,11 @@ import butterknife.ButterKnife;
 public class VideoMainFragment extends BaseFragment {
 
 
-    @Bind(R.id.tabs)
+    @BindView(R.id.tabs)
     TabLayout tabs;
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ViewPager viewPager;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
     private BaseFragmentAdapter fragmentAdapter;
 

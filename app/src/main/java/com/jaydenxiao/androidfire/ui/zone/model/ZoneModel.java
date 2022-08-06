@@ -19,6 +19,7 @@ import rx.Subscriber;
 public class ZoneModel implements CircleZoneContract.Model {
     /**
      * 获取未读条数
+     *
      * @return
      */
     @Override
@@ -30,11 +31,12 @@ public class ZoneModel implements CircleZoneContract.Model {
                 subscriber.onCompleted();
                 LogUtils.logd(AppCache.getInstance().getIcon());
             }
-        }).compose(RxSchedulers.<String>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
     /**
      * 获取列表
+     *
      * @param type
      * @param userId
      * @param page
@@ -49,13 +51,14 @@ public class ZoneModel implements CircleZoneContract.Model {
                 Result result = DatasUtil.getZoneListDatas();
                 subscriber.onNext(result);
                 subscriber.onCompleted();
-                LogUtils.logd("result"+result.toString());
+                LogUtils.logd("result" + result.toString());
             }
-        }).compose(RxSchedulers.<Result>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
     /**
      * 删除说说
+     *
      * @param circleId
      * @param position
      * @return
@@ -70,11 +73,12 @@ public class ZoneModel implements CircleZoneContract.Model {
                 subscriber.onCompleted();
                 LogUtils.logd(result.toString());
             }
-        }).compose(RxSchedulers.<Result>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
     /**
      * 增加点赞
+     *
      * @param publishId
      * @param publishUserId
      * @return
@@ -89,11 +93,12 @@ public class ZoneModel implements CircleZoneContract.Model {
                 subscriber.onCompleted();
                 LogUtils.logd(result.toString());
             }
-        }).compose(RxSchedulers.<Result>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
     /**
      * 取消点赞
+     *
      * @param publishId
      * @param publishUserId
      * @return
@@ -108,11 +113,12 @@ public class ZoneModel implements CircleZoneContract.Model {
                 subscriber.onCompleted();
                 LogUtils.logd(result.toString());
             }
-        }).compose(RxSchedulers.<Result>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
     /**
      * 增加评论
+     *
      * @param publishUserId
      * @param circleItem
      * @return
@@ -127,11 +133,12 @@ public class ZoneModel implements CircleZoneContract.Model {
                 subscriber.onCompleted();
                 LogUtils.logd(result.toString());
             }
-        }).compose(RxSchedulers.<Result>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
     /**
      * 删除评论
+     *
      * @param commentId
      * @return
      */
@@ -145,7 +152,7 @@ public class ZoneModel implements CircleZoneContract.Model {
                 subscriber.onCompleted();
                 LogUtils.logd(result.toString());
             }
-        }).compose(RxSchedulers.<Result>io_main());
+        }).compose(RxSchedulers.io_main());
     }
 
 }

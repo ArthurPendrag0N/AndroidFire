@@ -15,14 +15,15 @@ import rx.Observable;
 public interface NewsDetailContract {
     interface Model extends BaseModel {
         //请求获取新闻
-        Observable <NewsDetail> getOneNewsData(String postId);
+        Observable<NewsDetail> getOneNewsData(String postId);
     }
 
     interface View extends BaseView {
         //返回获取的新闻
         void returnOneNewsData(NewsDetail newsDetail);
     }
-    abstract static class Presenter extends BasePresenter<View, Model> {
+
+    abstract class Presenter extends BasePresenter<View, Model> {
         //发起获取单条新闻请求
         public abstract void getOneNewsDataRequest(String postId);
     }

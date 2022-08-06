@@ -4,8 +4,8 @@ import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
-import com.jaydenxiao.androidfire.app.AppApplication;
 import com.jaydenxiao.androidfire.R;
+import com.jaydenxiao.androidfire.app.AppApplication;
 
 
 /**
@@ -15,7 +15,7 @@ import com.jaydenxiao.androidfire.R;
  */
 public class NameClickable extends ClickableSpan implements View.OnClickListener {
     private final ISpanClick mListener;
-    private int mPosition;
+    private final int mPosition;
 
     public NameClickable(ISpanClick l, int position) {
         mListener = l;

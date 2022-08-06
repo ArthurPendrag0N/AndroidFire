@@ -26,19 +26,20 @@ import com.jaydenxiao.common.commonutils.FormatUtil;
 public class CommentDialog extends Dialog implements
         View.OnClickListener {
 
-    private Context mContext;
-    private CircleZonePresenter mPresenter;
-    private CommentItem mCommentItem;
-    private int mCirclePosition,commentPosition;
+    private final Context mContext;
+    private final CircleZonePresenter mPresenter;
+    private final CommentItem mCommentItem;
+    private final int mCirclePosition;
+    private final int commentPosition;
 
-    public CommentDialog(Context context,CircleZonePresenter presenter,
-                         CommentItem commentItem, int circlePosition,int commentPosition) {
+    public CommentDialog(Context context, CircleZonePresenter presenter,
+                         CommentItem commentItem, int circlePosition, int commentPosition) {
         super(context, R.style.CustomProgressDialog);
         mContext = context;
         this.mPresenter = presenter;
         this.mCommentItem = commentItem;
         this.mCirclePosition = circlePosition;
-        this.commentPosition=commentPosition;
+        this.commentPosition = commentPosition;
         setCancelable(true);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_comment, null);
         setContentView(view);
@@ -60,9 +61,9 @@ public class CommentDialog extends Dialog implements
     }
 
     private void initView() {
-        TextView copyTv = (TextView) findViewById(R.id.copyTv);
+        TextView copyTv = findViewById(R.id.copyTv);
         copyTv.setOnClickListener(this);
-        TextView deleteTv = (TextView) findViewById(R.id.deleteTv);
+        TextView deleteTv = findViewById(R.id.deleteTv);
         if (mCommentItem != null
                 && AppCache.getInstance().getUserId().equals(
                 mCommentItem.getUserId())) {
@@ -85,7 +86,7 @@ public class CommentDialog extends Dialog implements
                 break;
             case R.id.deleteTv:
                 if (mPresenter != null && mCommentItem != null) {
-                    mPresenter.deleteComment(mCirclePosition, FormatUtil.checkValue(mCommentItem.getId()),commentPosition);
+                    mPresenter.deleteComment(mCirclePosition, FormatUtil.checkValue(mCommentItem.getId()), commentPosition);
                 }
                 dismiss();
                 break;
